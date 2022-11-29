@@ -1,12 +1,10 @@
-package ca.ewanbaxter.weapon;
-
-import javax.swing.ImageIcon;
+package weapon;
 
 public abstract class Weapon {
 
     // Weapon Properties
-    private int         weight;
-    private int         attackMod;
+    private final int weight;
+    private final int attackMod;
 
 
     // Constructor
@@ -20,7 +18,7 @@ public abstract class Weapon {
     public String toString() {
 
         return String.format("""
-                        Weapon: %s            Weight: %d      Attack Mod: %d""",
+                        Weapon: %-14s                 Weight: %d      Attack Mod: %d""",
                 this.getClass().getSimpleName(),
                 this.weight,
                 this.attackMod
@@ -28,24 +26,5 @@ public abstract class Weapon {
 
     }
 
-    //----------------------------------------------------------------------------------------------
-    //---------------------------------GETTERS AND SETTERS------------------------------------------
-    //----------------------------------------------------------------------------------------------
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
-    public int getAttackMod() {
-        return attackMod;
-    }
-
-    public void setAttackMod(int attackMod) {
-        this.attackMod = attackMod;
-    }
 
 }

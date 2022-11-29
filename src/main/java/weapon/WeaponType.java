@@ -1,4 +1,4 @@
-package ca.ewanbaxter.gui;
+package weapon;
 
 public enum WeaponType {
     DAGGER,

@@ -1,12 +1,10 @@
-package character;
+package weapon;
 
+// Paths for the weapon images
 public enum ImagePath {
-    CLERIC ("../images/cleric.png"),
-    FIGHTER ("../images/fighter.png"),
-    ROGUE ("../images/rogue.png"),
-    BEHOLDER ("../images/beholder.png"),
-    DRAGON ("../images/dragon.png"),
-    VAMPIRE ("../images/vampire.jpeg");
+    DAGGER ("/images/dagger.png"),
+    HAMMER ("/images/hammer.png"),
+    SWORD ("/images/sword.png");
 
     private final String path;
 

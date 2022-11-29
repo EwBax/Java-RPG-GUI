@@ -1,9 +1,10 @@
-package ca.ewanbaxter.gui;
+package gui;
+
+import character.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MainFrame extends JFrame {
 
@@ -16,6 +17,11 @@ public class MainFrame extends JFrame {
     // Panels / Screens
     public static SplashScreen      splashScreen;
     public static CharacterScreen   characterScreen;
+    public static BattleScreen      battleScreen;
+
+    // Player and Monster Characters
+    public static Player            playerCharacter;
+    public static Monster           monsterCharacter;
 
 
     // Constructor
@@ -46,10 +52,40 @@ public class MainFrame extends JFrame {
         characterScreen.setBounds(0, 0, 750, 750);
         characterScreen.setVisible(false);
 
+        battleScreen = new BattleScreen();
+        battleScreen.setBounds(0, 0, 750, 750);
+        battleScreen.setVisible(false);
+
 
         this.add(splashScreen);
         this.add(characterScreen);
+        this.add(battleScreen);
+
     }
 
+
+    // Method to generate random monster
+    public static void generateMonster() {
+
+        // Generating a random number to represent monster type
+        int random =
+                ThreadLocalRandom.current().nextInt(MonsterType.values().length);
+
+        // random will always be 0, 1, or 2, but default case covers 0 case just in case of
+        // unforeseen values
+        MonsterType monsterType = switch (random) {
+
+            default -> MonsterType.BEHOLDER;
+
+            case 1 -> MonsterType.DRAGON;
+
+            case 2 -> MonsterType.VAMPIRE;
+
+        };
+
+        // Initializing monster
+        monsterCharacter = new Monster(monsterType.toString(), monsterType);
+
+    }
 
 }

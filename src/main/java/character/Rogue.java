@@ -1,10 +1,9 @@
-package ca.ewanbaxter.character;
+package character;
 
-import ca.ewanbaxter.weapon.*;
+import weapon.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import java.io.File;
 import java.io.IOException;
 
 public class Rogue extends Player {
@@ -23,34 +22,37 @@ public class Rogue extends Player {
 
 
     // Constructor
-    public Rogue(String name, Weapon playerWeapon) {
-        super(name, playerWeapon);
+    public Rogue(String name, int[] stats, Weapon playerWeapon) {
+        super(name, stats, playerWeapon);
     }
 
 
     // Rogue specific rollStats method
-    @Override
-    public void rollStats() {
+    public static int[] rollStats() {
 
         // rolling stats like normal
-        super.rollStats();
+        int[] stats = Character.rollStats();
 
         // Then adding rogue modifiers
-        super.setDefense(super.getDefense() + ROGUE_DEFENSE_MODIFIER);
-        super.setAgility(super.getAgility() + ROGUE_AGILITY_MODIFIER);
-        super.setBaseAttack(super.getBaseAttack() + ROGUE_ATTACK_MODIFIER);
+        stats[StatIndex.DEFENSE.ordinal()] += ROGUE_DEFENSE_MODIFIER;
+        stats[StatIndex.AGILITY.ordinal()] += ROGUE_AGILITY_MODIFIER;
+        stats[StatIndex.BASE_ATTACK.ordinal()] += ROGUE_ATTACK_MODIFIER;
+
+        return stats;
 
     }
 
 
+    // Method to generate and return image icon
     public static ImageIcon getImage() {
-
-        try {
-            image = new ImageIcon(ImageIO.read(new File("images/rogue.png")));
-        } catch (IOException e) {
-            System.out.println("Error loading Rogue image\n");
+        if (image == null) {
+            try {
+                image =
+                        new ImageIcon(ImageIO.read(Rogue.class.getResourceAsStream(ImagePath.ROGUE.toString())));
+            } catch (IOException e) {
+                System.out.println("Error loading Rogue image\n");
+            }
         }
-
         return image;
     }
 

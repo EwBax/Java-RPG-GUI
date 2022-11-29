@@ -1,6 +1,6 @@
-package ca.ewanbaxter.character;
+package character;
 
-import ca.ewanbaxter.weapon.*;
+import weapon.*;
 
 public abstract class Player extends Character {
 
@@ -8,8 +8,8 @@ public abstract class Player extends Character {
     Weapon playerWeapon;
 
     // Constructor
-    public Player(String name, Weapon playerWeapon) {
-        super(name);
+    public Player(String name, int[] stats, Weapon playerWeapon) {
+        super(name, stats);
         this.playerWeapon = playerWeapon;
     }
 
@@ -19,18 +19,20 @@ public abstract class Player extends Character {
                         Player: %s
                         --------------------
                         Class: %s
-                        HP: %d     Defense: %d    Agility: %d    Base Attack: %d
-                        %s""",
+                        HP: %d                  Defense: %d     Agility: %d     Base Attack: %d
+                        %s
+                        """,
                 super.getName(),
                 super.getClass().getSimpleName(),
                 super.getHitPoints(),
                 super.getDefense(),
                 super.getAgility(),
                 super.getBaseAttack(),
-                playerWeapon
+                playerWeapon.toString()
         );
 
     }
+
 
     //----------------------------------------------------------------------------------------------
     //---------------------------------GETTERS AND SETTERS------------------------------------------

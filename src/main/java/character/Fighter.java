@@ -1,10 +1,9 @@
-package ca.ewanbaxter.character;
+package character;
 
-import ca.ewanbaxter.weapon.*;
+import weapon.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import java.io.File;
 import java.io.IOException;
 
 public class Fighter extends Player {
@@ -22,33 +21,37 @@ public class Fighter extends Player {
 
 
     // Constructor
-    public Fighter(String name, Weapon playerWeapon) {
-        super(name, playerWeapon);
+    public Fighter(String name, int[] stats, Weapon playerWeapon) {
+        super(name, stats, playerWeapon);
     }
+
 
     // Fighter specific rollStats method
-    @Override
-    public void rollStats() {
+    public static int[] rollStats() {
 
         // rolling stats like normal
-        super.rollStats();
+        int[] stats = Character.rollStats();
 
         // Then adding Fighter modifiers
-        super.setHitPoints(super.getHitPoints() + FIGHTER_HP_MODIFIER);
-        super.setDefense(super.getDefense() + FIGHTER_DEFENSE_MODIFIER);
-        super.setAgility(super.getAgility() + FIGHTER_AGILITY_MODIFIER);
+        stats[StatIndex.HIT_POINTS.ordinal()] += FIGHTER_HP_MODIFIER;
+        stats[StatIndex.DEFENSE.ordinal()] += FIGHTER_DEFENSE_MODIFIER;
+        stats[StatIndex.AGILITY.ordinal()] += FIGHTER_AGILITY_MODIFIER;
+
+        return stats;
 
     }
 
 
+    // Method to generate and return image icon
     public static ImageIcon getImage() {
-
-        try {
-            image = new ImageIcon(ImageIO.read(new File("images/fighter.png")));
-        } catch (IOException e) {
-            System.out.println("Error loading Fighter image\n");
+        if (image == null) {
+            try {
+                image =
+                        new ImageIcon(ImageIO.read(Fighter.class.getResourceAsStream(ImagePath.FIGHTER.toString())));
+            } catch (IOException e) {
+                System.out.println("Error loading Fighter image\n");
+            }
         }
-
         return image;
     }
 

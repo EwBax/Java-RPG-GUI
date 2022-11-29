@@ -1,9 +1,6 @@
-package ca.ewanbaxter.character;
+package character;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import java.io.File;
-import java.io.IOException;
 
 public class Monster extends Character {
 
@@ -11,9 +8,12 @@ public class Monster extends Character {
     private MonsterType monsterType;
     private ImageIcon   image;
 
+
     //Constructor
     public Monster(String name, MonsterType monsterType) {
-        super(name);
+        // Monster does not have any specific stats, and does not need info from the GUI, so we
+        // just call the static Character method to generate stats
+        super(name, Character.rollStats());
         this.monsterType = monsterType;
         this.setImage();
     }
@@ -30,8 +30,9 @@ public class Monster extends Character {
             default:
 
                 try {
-                    this.image = new ImageIcon(ImageIO.read(new File("images/beholder.png")));
-                } catch (IOException e) {
+                    this.image =
+                            new ImageIcon(this.getClass().getResource(ImagePath.BEHOLDER.toString()));
+                } catch (NullPointerException e) {
                     System.out.println("Error loading Beholder image\n");
                 }
 
@@ -40,8 +41,8 @@ public class Monster extends Character {
             case DRAGON:
 
                 try {
-                    this.image = new ImageIcon(ImageIO.read(new File("images/dragon.png")));
-                } catch (IOException e) {
+                    this.image = new ImageIcon(this.getClass().getResource(ImagePath.DRAGON.toString()));
+                } catch (NullPointerException e) {
                     System.out.println("Error loading dragon image");
                 }
 
@@ -50,8 +51,9 @@ public class Monster extends Character {
             case VAMPIRE:
 
                 try {
-                    this.image = new ImageIcon(ImageIO.read(new File("images/vampire.jpeg")));
-                } catch (IOException e) {
+                    this.image =
+                            new ImageIcon(this.getClass().getResource(ImagePath.VAMPIRE.toString()));
+                } catch (NullPointerException e) {
                     System.out.println("Error loading vampire image");
                 }
 
@@ -62,13 +64,15 @@ public class Monster extends Character {
     }
 
 
+    // Monster specific toString method
     @Override
     public String toString() {
 
         return String.format("""
                         Monster: %s
                         --------------------
-                        HP: %3d      Defense: %3d      Agility: %3d     Base Attack: %3d""",
+                        HP: %d      	   Defense: %d     Agility: %d     Base Attack: %d
+                        """,
                 super.getName(),
                 super.getHitPoints(),
                 super.getDefense(),
@@ -79,8 +83,13 @@ public class Monster extends Character {
     }
 
 
+    // Getter for image
     public ImageIcon getImage() {
         return this.image;
     }
 
+    // getter for MonsterType
+    public MonsterType getMonsterType() {
+        return monsterType;
+    }
 }

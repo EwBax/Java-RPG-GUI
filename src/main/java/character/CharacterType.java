@@ -1,7 +1,8 @@
-package ca.ewanbaxter.gui;
+package character;
 
 public enum CharacterType {
     CLERIC,
     FIGHTER,
-    ROGUE;
+    ROGUE,
+    DEFAULT
 }

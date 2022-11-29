@@ -1,11 +1,10 @@
-package ca.ewanbaxter.gui;
+package gui;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 
 
@@ -43,8 +42,8 @@ public class SplashScreen extends JPanel {
         // Getting splash screen image
         try {
             splashImage =
-                    new ImageIcon(ImageIO.read(new File("images/SplashScreen" +
-                            ".png")));
+                    new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream("/images" +
+                            "/SplashScreen.png")));
             imageLabel.setIcon(splashImage);
         } catch (IOException e) {
             imageLabel.setText("Error loading image.");

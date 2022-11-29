@@ -1,10 +1,9 @@
-package ca.ewanbaxter.character;
+package character;
 
-import ca.ewanbaxter.weapon.*;
+import weapon.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import java.io.File;
 import java.io.IOException;
 
 public class Cleric extends Player {
@@ -24,32 +23,36 @@ public class Cleric extends Player {
 
 
     // Constructor
-    public Cleric(String name, Weapon playerWeapon) {
-        super(name, playerWeapon);
+    public Cleric(String name, int[] stats, Weapon playerWeapon) {
+        super(name, stats, playerWeapon);
     }
-
 
     // Cleric specific rollStats method
-    @Override
-    public void rollStats() {
+    public static int[] rollStats() {
 
         // rolling stats like normal
-        super.rollStats();
+        int[] stats = Character.rollStats();
 
         // Then adding Cleric modifiers
-        super.setDefense(super.getDefense() + CLERIC_DEFENSE_MODIFIER);
-        super.setAgility(super.getAgility() + CLERIC_AGILITY_MODIFIER);
-        super.setBaseAttack(super.getBaseAttack() + CLERIC_ATTACK_MODIFIER);
+        stats[StatIndex.DEFENSE.ordinal()] += CLERIC_DEFENSE_MODIFIER;
+        stats[StatIndex.AGILITY.ordinal()] += CLERIC_AGILITY_MODIFIER;
+        stats[StatIndex.BASE_ATTACK.ordinal()] += CLERIC_ATTACK_MODIFIER;
+
+        return stats;
 
     }
 
 
+    // Method to generate and return image icon
     public static ImageIcon getImage() {
 
-        try {
-            image = new ImageIcon(ImageIO.read(new File("images/cleric.png")));
-        } catch (IOException e) {
-            System.out.println("Error loading Cleric image\n");
+        if (image == null) {
+            try {
+                image =
+                        new ImageIcon(ImageIO.read(Cleric.class.getResourceAsStream(ImagePath.CLERIC.toString())));
+            } catch (IOException e) {
+                System.out.println("Error loading Cleric image\n");
+            }
         }
 
         return image;
